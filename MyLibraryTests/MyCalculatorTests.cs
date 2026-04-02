@@ -1,4 +1,5 @@
-﻿using MyLibrary;
+﻿using AutoFixture.Xunit2;
+using MyLibrary;
 
 namespace MyLibraryTests
 {
@@ -30,6 +31,16 @@ namespace MyLibraryTests
             var actualResult = sut.Add(i, j);
             // Assert
             Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Theory, AutoData]
+        public void Add_TestV3(int i, int j, int expectedResult)
+        {
+            // Act
+            MyCalculator sut = new MyCalculator();
+            var actualResult = sut.Add(i, j);
+            // Assert
+            Assert.NotEqual(expectedResult, actualResult);
         }
     }
 }
