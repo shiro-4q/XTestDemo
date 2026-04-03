@@ -55,26 +55,26 @@ namespace MyLibraryTests
             var actualResult = await sut.ChangeNewPasswordAsync(email, oldPassowrd, newPassword);
             actualResult.Should().BeTrue();
             repoMock.Verify(r => r.UpdateAsync(It.IsAny<User>()), Times.Once);
-            //user.Password.Should().Be(newPassword);
+            user.Password.Should().Be(newPassword);
         }
 
-        //[Theory, AutoMoqData]
-        //public async Task ChangeNewPassword_Failed([Frozen] Mock<IUserRepository> repoMock, UserService sut, int id, string email, string oldPassowrd)
-        //{
-        //    var user = new User(id, email, oldPassowrd);
-        //    repoMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync(user);
-        //    var actualResult = await sut.ChangeNewPasswordAsync(email, oldPassowrd + "123", oldPassowrd + "_new");
-        //    actualResult.Should().BeFalse();
-        //    repoMock.Verify(r => r.UpdateAsync(It.IsAny<User>()), Times.Never);
-        //}
+        [Theory, AutoMoqData]
+        public async Task ChangeNewPassword_Failed([Frozen] Mock<IUserRepository> repoMock, UserService sut, int id, string email, string oldPassowrd)
+        {
+            var user = new User(id, email, oldPassowrd);
+            repoMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync(user);
+            var actualResult = await sut.ChangeNewPasswordAsync(email, oldPassowrd + "123", oldPassowrd + "_new");
+            actualResult.Should().BeFalse();
+            repoMock.Verify(r => r.UpdateAsync(It.IsAny<User>()), Times.Never);
+        }
 
-        //[Theory, AutoMoqData]
-        //public async Task ChangeNewPassword_ThrowException([Frozen] Mock<IUserRepository> repoMock, UserService sut, string email, string oldPassowrd)
-        //{
-        //    repoMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync((User?)null);
-        //    var action = () => sut.ChangeNewPasswordAsync(email, oldPassowrd, oldPassowrd + "_new");
-        //    await action.Should().ThrowAsync<Exception>().WithMessage("user not found");
-        //    repoMock.Verify(r => r.UpdateAsync(It.IsAny<User>()), Times.Never);
-        //}
+        [Theory, AutoMoqData]
+        public async Task ChangeNewPassword_ThrowException([Frozen] Mock<IUserRepository> repoMock, UserService sut, string email, string oldPassowrd)
+        {
+            repoMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync((User?)null);
+            var action = () => sut.ChangeNewPasswordAsync(email, oldPassowrd, oldPassowrd + "_new");
+            await action.Should().ThrowAsync<Exception>().WithMessage("user not found");
+            repoMock.Verify(r => r.UpdateAsync(It.IsAny<User>()), Times.Never);
+        }
     }
 }
