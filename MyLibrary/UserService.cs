@@ -9,9 +9,8 @@
             var user = await _repository.GetByEmailAsync(email) ?? throw new Exception("user not found");
             if (!user.ValidatePassword(oldPassword))
                 return false;
-            bool result = true;
             user.ChangePassword(newPassword);
-            result = await _repository.UpdateAsync(user);
+            bool result = await _repository.UpdateAsync(user);
             return result;
         }
     }
