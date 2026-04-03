@@ -32,9 +32,9 @@ namespace MyLibraryTests
 
             public int UpdateCallCount { get; private set; } = 0;
 
-            public Task<User> GetByEmailAsync(string email)
+            public Task<User?> GetByEmailAsync(string email)
             {
-                return Task.FromResult(new User(1, Email, OldPassword));
+                return Task.FromResult(new User(1, Email, OldPassword) ?? null);
             }
             public Task<bool> UpdateAsync(User user)
             {
@@ -69,7 +69,7 @@ namespace MyLibraryTests
         }
 
         [Theory, AutoMoqData]
-        public async Task ChangeNewPassword_ThrowException([Frozen] Mock<IUserRepository> repoMock, UserService sut, int id, string email, string oldPassowrd)
+        public async Task ChangeNewPassword_ThrowException([Frozen] Mock<IUserRepository> repoMock, UserService sut, string email, string oldPassowrd)
         {
             repoMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync((User?)null);
             var action = async () => await sut.ChangeNewPasswordAsync(email, oldPassowrd, oldPassowrd + "_new");
