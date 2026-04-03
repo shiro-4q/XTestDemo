@@ -72,7 +72,7 @@ namespace MyLibraryTests
         public async Task ChangeNewPassword_ThrowException([Frozen] Mock<IUserRepository> repoMock, UserService sut, string email, string oldPassowrd)
         {
             repoMock.Setup(r => r.GetByEmailAsync(email)).ReturnsAsync((User?)null);
-            var action = async () => await sut.ChangeNewPasswordAsync(email, oldPassowrd, oldPassowrd + "_new");
+            var action = () => sut.ChangeNewPasswordAsync(email, oldPassowrd, oldPassowrd + "_new");
             await action.Should().ThrowAsync<Exception>().WithMessage("user not found");
             repoMock.Verify(r => r.UpdateAsync(It.IsAny<User>()), Times.Never);
         }
