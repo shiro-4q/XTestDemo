@@ -56,6 +56,7 @@ namespace MyLibraryTests
             actualResult.Should().BeTrue();
             repoMock.Verify(r => r.UpdateAsync(It.IsAny<User>()), Times.Once);
             //user.Password.Should().Be(newPassword);
+
         }
 
         //[Theory, AutoMoqData]
