@@ -41,7 +41,6 @@ namespace MyLibraryTests
             var actualResult = sut.Add(i, j);
             // Assert
             Assert.NotEqual(expectedResult, actualResult);
-            // test
         }
     }
 }
