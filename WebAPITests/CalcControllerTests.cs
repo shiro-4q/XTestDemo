@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
-namespace MyLibraryTests
+namespace WebAPITests
 {
     public class CalcControllerTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
     {
