@@ -1,5 +1,6 @@
 {
   "stryker-config": {
+    "reporters": [ "html", "cleartexttree" ],
     "thresholds": {
       "high": 80,
       "low": 60,
