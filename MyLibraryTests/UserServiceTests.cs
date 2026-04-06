@@ -36,6 +36,7 @@ namespace MyLibraryTests
             {
                 return Task.FromResult(new User(1, Email, OldPassword) ?? null);
             }
+
             public Task<bool> UpdateAsync(User user)
             {
                 UpdateCallCount++;
