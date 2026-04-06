@@ -1,5 +1,6 @@
 {
   "stryker-config": {
+    "project": "WebAPI.csproj",
     "reporters": [ "html", "cleartexttree" ],
     "thresholds": {
       "high": 80,

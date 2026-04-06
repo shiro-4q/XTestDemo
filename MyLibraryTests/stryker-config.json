@@ -1,5 +1,6 @@
 {
   "stryker-config": {
+    "project": "MyLibrary.csproj",
     "reporters": [ "html", "cleartexttree" ],
     "thresholds": {
       "high": 80,
