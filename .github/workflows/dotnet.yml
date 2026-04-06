@@ -29,6 +29,6 @@ jobs:
     - name: Install Stryker
       run: dotnet tool install -g dotnet-stryker
     - name: Stryker
-      run: 
+      run: |
           dotnet stryker --config-file=MyLibraryTests/stryker-config.json
           dotnet stryker --config-file=WebAPITests/stryker-config.json
