@@ -11,24 +11,48 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 10.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Install Stryker
-      run: dotnet tool install -g dotnet-stryker
-    - name: Stryker
-      run: |
-          dotnet stryker --config-file=MyLibraryTests/stryker-config.json
-          dotnet stryker --config-file=WebAPITests/stryker-config.json
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+
+  stryker:
+    needs: build   # 等 build 完成再执行
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        config:
+          - MyLibraryTests/stryker-config.json
+          - WebAPITests/stryker-config.json
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Install Stryker
+        run: dotnet tool install -g dotnet-stryker
+
+      - name: Run Stryker
+        run: dotnet stryker --config-file=${{ matrix.config }}
