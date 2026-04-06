@@ -1,5 +1,7 @@
 <Solution>
   <Project Path="MyLibrary/MyLibrary.csproj" />
   <Project Path="MyLibraryTests/MyLibraryTests.csproj" Id="500a5f45-85ef-45eb-a261-da4457f0caa1" />
+  <Project Path="WebAPI/WebAPI.csproj" Id="573e807c-a134-4ef3-88de-9662c25f9861" />
+  <Project Path="WebAPITests/WebAPITests.csproj" Id="39449049-1e10-4593-88b2-273e9f9f8f4c" />
   <Project Path="WireMockDemo/WireMockDemo.csproj" Id="bb631be5-58df-402e-9b2b-f54d87fa37dc" />
 </Solution>
